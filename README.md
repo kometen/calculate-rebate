@@ -17,6 +17,6 @@ The loop then subtract the first volume (500000) from the total, calculate the r
 
 ```
 while true {
-    r += (total - 500000)/total * rebate
+    r += (total - volume)/total * rebate
 }
 ```
