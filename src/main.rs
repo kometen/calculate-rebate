@@ -63,16 +63,39 @@ fn calculate_rebate_test_fn(total: i32) -> BigDecimal {
 }
 
 fn main() {
-    println!("Jeg æder blåbærsyltetøj!");
+    let precision = 8;
+
+    println!("4. kvartal 2019.");
+    let envelopes = 266917;
+    let paper = 510618;
+
+    println!("{:.1$}", total_rebate_fn(envelopes), precision);
+    println!("{:.1$}", total_rebate_fn(paper), precision);
+
+    println!("4. kvartal 2019 samt 1. kvartal 2020.");
+    let envelopes = 612008;
+    let paper = 1163101;
+
+    println!("{:.1$}", total_rebate_fn(envelopes), precision);
+    println!("{:.1$}", total_rebate_fn(paper), precision);
+
+    println!("4. kvartal 2019 samt 1. og 2. kvartal 2020.");
+    let envelopes = 892068;
+    let paper = 1754791;
+
+    println!("{:.1$}", total_rebate_fn(envelopes), precision);
+    println!("{:.1$}", total_rebate_fn(paper), precision);
+
+    println!("4. kvartal 2019 samt 1., 2. og 3. kvartal 2020.");
     let envelopes = 1285540;
     let paper = 2583058;
+
+    println!("{:.1$}", total_rebate_fn(envelopes), precision);
+    println!("{:.1$}", total_rebate_fn(paper), precision);
 
     let test1 = 499;
     let test2 = 1000;
     let test3 = 9999;
-
-    println!("{}", total_rebate_fn(envelopes));
-    println!("{}", total_rebate_fn(paper));
 
     println!("Formatted some test to eight decimal precision.");
     assert_eq!(calculate_rebate_test_fn(test1), BigDecimal::from_i32(0).unwrap());
