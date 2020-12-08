@@ -1,4 +1,5 @@
 use bigdecimal::{BigDecimal, FromPrimitive};
+use std::str::FromStr;
 
 struct Rebate {
     volume: i32,
@@ -16,6 +17,7 @@ impl Rebate {
 
 fn calculate_rebate_fn(total: i32, rebates: Box<[Rebate]>) -> BigDecimal {
     let mut total_rebate = BigDecimal::from_i32(0).unwrap();
+    let _t = BigDecimal::from_i32(total).unwrap();
 
     let mut rebate = rebates.iter();
 
@@ -26,7 +28,8 @@ fn calculate_rebate_fn(total: i32, rebates: Box<[Rebate]>) -> BigDecimal {
                     break
                 } else {
                     let remaining = total - &r.volume + 1;
-                    total_rebate += BigDecimal::from_f32(remaining as f32).unwrap() / BigDecimal::from_f32(total as f32).unwrap() * &r.rebate;
+                    let _r = BigDecimal::from_i32(remaining).unwrap();
+                    total_rebate += &_r / &_t * &r.rebate;
                 }
             }
             None => break,
@@ -37,11 +40,11 @@ fn calculate_rebate_fn(total: i32, rebates: Box<[Rebate]>) -> BigDecimal {
 
 fn total_rebate_fn(total: i32) -> BigDecimal {
     let rebates = [
-        Rebate::new(500000, BigDecimal::from_f32(0.08).unwrap()),
-        Rebate::new(1000000, BigDecimal::from_f32(0.01).unwrap()),
-        Rebate::new(2500000,  BigDecimal::from_f32(0.02).unwrap()),
-        Rebate::new(7500000,BigDecimal::from_f32(0.01).unwrap()),
-        Rebate::new(10000000, BigDecimal::from_f32(0.02).unwrap()),
+        Rebate::new(500000, BigDecimal::from_str("0.08").unwrap()),
+        Rebate::new(1000000, BigDecimal::from_str("0.01").unwrap()),
+        Rebate::new(2500000,  BigDecimal::from_str("0.02").unwrap()),
+        Rebate::new(7500000,BigDecimal::from_str("0.01").unwrap()),
+        Rebate::new(10000000, BigDecimal::from_str("0.02").unwrap()),
     ];
 
     calculate_rebate_fn(total, Box::from(rebates))
@@ -49,11 +52,11 @@ fn total_rebate_fn(total: i32) -> BigDecimal {
 
 fn calculate_rebate_test_fn(total: i32) -> BigDecimal {
     let rebates = [
-        Rebate::new(500, BigDecimal::from_f32(0.08).unwrap()),
-        Rebate::new(1000, BigDecimal::from_f32(0.01).unwrap()),
-        Rebate::new(2500,  BigDecimal::from_f32(0.02).unwrap()),
-        Rebate::new(7500,BigDecimal::from_f32(0.01).unwrap()),
-        Rebate::new(10000, BigDecimal::from_f32(0.02).unwrap()),
+        Rebate::new(500, BigDecimal::from_str("0.08").unwrap()),
+        Rebate::new(1000, BigDecimal::from_str("0.01").unwrap()),
+        Rebate::new(2500,  BigDecimal::from_str("0.02").unwrap()),
+        Rebate::new(7500,BigDecimal::from_str("0.01").unwrap()),
+        Rebate::new(10000, BigDecimal::from_str("0.02").unwrap()),
     ];
 
     calculate_rebate_fn(total, Box::from(rebates))
